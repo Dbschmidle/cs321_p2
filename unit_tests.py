@@ -79,5 +79,25 @@ class TestAdvancedCalculator(unittest.TestCase):
         self.assertEqual(self.calc.evaluate_expression(expr2), 12, "Evaluation of '2^3 + 4' should be 12")
         self.assertEqual(self.calc.evaluate_expression(expr3), 2, "Evaluation of '9 ➗ 3 - 1' should be 2")
 
+    def test_overflow(self):
+        # Test for large exponentiation that causes overflow
+        expression = "1e308 ** 2"  # This will likely cause an OverflowError
+        result = self.calc.evaluate_expression(expression)
+        self.assertEqual(result, 'overflow')
+
+    def test_large_multiplication(self):
+        result = self.calc.evaluate_expression("1e154 * 1e154")
+        self.assertEqual(result, 1e308)  # Should handle large numbers without overflow
+
+    def testSampleTest1(self):
+        expression = "((3.5 + 4.9) - (10➗2)) ✕ 3.40"
+        result = self.calc.evaluate_expression(expression)
+        self.assertEqual(result, 11.56)
+        
+    def testSampleTest2(self):
+        expression = "9999**9"
+        result = self.calc.evaluate_expression(expression)
+        self.assertEqual(result, 999100359916012598740083996400089999)
+
 if __name__ == '__main__':
     unittest.main()
