@@ -32,9 +32,21 @@ class AdvancedCalculator:
             return 'undefined'
         return math.sqrt(a)
 
+    # def nth_root(self, a, n):
+    #     if a < 0 and n % 2 == 0:
+    #         return 'undefined'
+    #     return a ** (1 / n)
+
     def nth_root(self, a, n):
+        # Handle the case where 'a' is negative and 'n' is odd
+        if a < 0 and n % 2 != 0:
+            return -(-a) ** (1 / n)  # Take the nth root of the positive part and apply the negative sign
+
+        # Handle the case where 'a' is negative and 'n' is even (undefined in real numbers)
         if a < 0 and n % 2 == 0:
             return 'undefined'
+
+        # For non-negative 'a' or even roots of non-negative 'a'
         return a ** (1 / n)
 
     # Trigonometric functions in radians
